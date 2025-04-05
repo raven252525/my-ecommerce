@@ -8,7 +8,7 @@ export default function CheckOutPage() {
     const [productInfo, setProductInfo] = useState([])
     useEffect(() => {
         const uniqueIds = [...new Set(selectedProducts)]
-        fetch('/api/products?_ids='+uniqueIds.join(','))
+        fetch('/api/products?ids='+uniqueIds.join(','))
         .then(response => response.json())
         .then(json => setProductInfo(json))
     }, [selectedProducts])

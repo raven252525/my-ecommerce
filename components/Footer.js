@@ -7,7 +7,6 @@ import { ProductsContext } from "./ProductsContext";
 
 export default function Footer() {
     const pathname = usePathname()
-    console.log(pathname)
 
     const {selectedProducts} = useContext(ProductsContext)
     return (
