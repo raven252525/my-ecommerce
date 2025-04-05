@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import Layout from "@/components/Layout"
 import Product from "@/components/ProductC"
