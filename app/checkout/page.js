@@ -41,7 +41,6 @@ export default function CheckOutPage() {
         }
     }
 
-    console.log(selectedProducts.length)
     const total = subtotal + deliveryFee
     return (
         <Layout>
@@ -69,28 +68,32 @@ export default function CheckOutPage() {
                     </div>
                 </div>
             ))}
-            <div className="mt-4">
-                <input value={address} onChange={e => setAddress(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street Address, Number"/>
-                <input value={city} onChange={e => setCity(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and Postal Code"/>
-                <input value={name} onChange={e => setName(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Your Name"/>
-                <input value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Email Address"/>
-            </div>
-            <div className="mt-4">
-                <div className="flex my-3">
-                    <h3 className="grow font-bold text-gray-400">Subtotal:</h3>
-                    <h3 className="font-bold">${subtotal}</h3>
-                </div>
-                <div className="flex my-3">
-                    <h3 className="grow font-bold text-gray-400">Delivery:</h3>
-                    <h3 className="font-bold">${deliveryFee}</h3>
-                </div>
-                <div className="flex my-3 border-t border-dashed border-emerald-500 pt-3">
-                    <h3 className="grow font-bold text-gray-400">Total:</h3>
-                    <h3 className="font-bold">${total}</h3>
-                </div>
-            </div>
             <form action="/api/checkout" method="POST">
-            <button className="bg-emerald-500 p-5 px-5 py-2 rounded-xl text-white w-full mt-4 my-4 shadow-lg shadow-emerald-300">Pay ${total}</button></form>
+                <div className="mt-4">
+                    <input name="address" value={address} onChange={e => setAddress(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street Address, Number"/>
+                    <input name="city" value={city} onChange={e => setCity(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and Postal Code"/>
+                    <input name="name" value={name} onChange={e => setName(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Your Name"/>
+                    <input name="email" value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Email Address"/>
+                </div>
+                <div className="mt-4">
+                    <div className="flex my-3">
+                        <h3 className="grow font-bold text-gray-400">Subtotal:</h3>
+                        <h3 className="font-bold">${subtotal}</h3>
+                    </div>
+                    <div className="flex my-3">
+                        <h3 className="grow font-bold text-gray-400">Delivery:</h3>
+                        <h3 className="font-bold">${deliveryFee}</h3>
+                    </div>
+                    <div className="flex my-3 border-t border-dashed border-emerald-500 pt-3">
+                        <h3 className="grow font-bold text-gray-400">Total:</h3>
+                        <h3 className="font-bold">${total}</h3>
+                    </div>
+                </div>
+                
+                <input type="hidden" name="products" value={selectedProducts.join(',')}/>
+
+                <button type="submit" className="bg-emerald-500 p-5 px-5 py-2 rounded-xl text-white w-full mt-4 my-4 shadow-lg shadow-emerald-300">Pay ${total}</button>
+            </form>
             
         </Layout>
     )
