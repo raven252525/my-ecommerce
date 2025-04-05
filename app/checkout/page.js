@@ -30,15 +30,26 @@ export default function CheckOutPage() {
         }
     }
 
-    let total = 0;
+    const deliveryFee = 5
+    let subtotal = 0
+    
+    if (selectedProducts?.length) {
+        for (let id of selectedProducts) {
+            const product = productInfos.find(p => p._id === id)
+            const price = product ? product.price : -10000
+            subtotal += price
+        }
+    }
 
+    console.log(selectedProducts.length)
+    const total = subtotal + deliveryFee
     return (
         <Layout>
-            {!productInfos.length && (
+            {!selectedProducts.length && (
                 <div>no products in your shopping cart</div>
             )}
-            {productInfos.length && productInfos.map((productInfo, productInfoIndex) => (
-                <div key={productInfoIndex} className="flex mb-5">
+            {selectedProducts.length && productInfos.map((productInfo) => (
+                <div key={productInfo._id} className="flex mb-5">
                     <div className="bg-gray-100 p-3 rounded-xl shrink-0 ">
                         <img className="w-24" src={productInfo.picture} alt=""/>
                     </div>
@@ -67,17 +78,20 @@ export default function CheckOutPage() {
             <div className="mt-4">
                 <div className="flex my-3">
                     <h3 className="grow font-bold text-gray-400">Subtotal:</h3>
-                    <h3 className="font-bold">$123</h3>
+                    <h3 className="font-bold">${subtotal}</h3>
                 </div>
                 <div className="flex my-3">
                     <h3 className="grow font-bold text-gray-400">Delivery:</h3>
-                    <h3 className="font-bold">$123</h3>
+                    <h3 className="font-bold">${deliveryFee}</h3>
                 </div>
                 <div className="flex my-3 border-t border-dashed border-emerald-500 pt-3">
                     <h3 className="grow font-bold text-gray-400">Total:</h3>
-                    <h3 className="font-bold">$123</h3>
+                    <h3 className="font-bold">${total}</h3>
                 </div>
             </div>
+            <form action="/api/checkout" method="POST">
+            <button className="bg-emerald-500 p-5 px-5 py-2 rounded-xl text-white w-full mt-4 my-4 shadow-lg shadow-emerald-300">Pay ${total}</button></form>
+            
         </Layout>
     )
 }
