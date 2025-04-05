@@ -44,16 +44,15 @@ export default function Home() {
                   <Product {...productInfo}/>
                 </div>
               ))}
-          </div>                
-              </div>
-            )
-            } 
-
+            </div>                
+          </div>
+            )}
           </div>
         ))}
-        <div className="py-4">
-        </div>
       </div>
+
+        <footer className='' >navigation</footer>
+
     </div>
   )
 }
