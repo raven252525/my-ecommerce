@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 
-export default function LayoutRouter({children}) {
+export default function Layout({children}) {
     return (
         <div>
             <div className="p-5">
