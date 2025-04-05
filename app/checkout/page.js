@@ -47,7 +47,7 @@ export default function CheckOutPage() {
             {!selectedProducts.length && (
                 <div>no products in your shopping cart</div>
             )}
-            {selectedProducts.length && productInfos.map((productInfo) => (
+            {(selectedProducts.length) && productInfos.map((productInfo) => (
                 <div key={productInfo._id} className="flex mb-5">
                     <div className="bg-gray-100 p-3 rounded-xl shrink-0 ">
                         <img className="w-24" src={productInfo.picture} alt=""/>
