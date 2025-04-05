@@ -1,5 +1,6 @@
 'use client'
 
+import Layout from "@/components/Layout"
 import Product from "@/components/ProductC"
 import { useEffect, useState } from "react"
 
@@ -30,7 +31,7 @@ export default function Home() {
   //NOTE- IF NOT DONE, TRY TO ENABLE SEARCH BY CATGEORY
   //didnt want to deal with relabeling category labtop to tabtops, so just did a conditional statement
   return (
-    <div className="p-5">
+    <Layout>
       <input value={phrase} onChange={e => setPhrase(e.target.value)} type="text" placeholder="Search for products..." 
       className="bg-gray-100 w-full py-2 px-4 rounded-xl "/>
       <div>
@@ -50,9 +51,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-
-        <footer className='' >navigation</footer>
-
-    </div>
+    </Layout>
   )
 }

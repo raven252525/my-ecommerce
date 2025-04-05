@@ -2,7 +2,7 @@
 import { initMongoose } from "@/lib/mongoose";
 import Product from "@/models/Product";
 
-export async function GET(request) {
+export async function GET() {
 
     await initMongoose();
     //console.log("HIIIII") DEBUG
