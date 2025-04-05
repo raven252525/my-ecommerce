@@ -6,6 +6,10 @@ import { useContext, useEffect, useState } from "react"
 export default function CheckOutPage() {
     const {selectedProducts, setSelectedProducts} = useContext(ProductsContext)
     const [productInfos, setProductInfos] = useState([])
+    const [address, setAddress] = useState('')
+    const [city, setCity] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
     
     
     useEffect(() => {
@@ -25,6 +29,8 @@ export default function CheckOutPage() {
                 return prev.filter((value, index) => index !== pos)})
         }
     }
+
+    let total = 0;
 
     return (
         <Layout>
@@ -52,11 +58,25 @@ export default function CheckOutPage() {
                     </div>
                 </div>
             ))}
-            <div>
-                <input className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street Address, Number"/>
-                <input className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and Postal Code"/>
-                <input className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Your Name"/>
-                <input className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Email Address"/>
+            <div className="mt-4">
+                <input value={address} onChange={e => setAddress(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street Address, Number"/>
+                <input value={city} onChange={e => setCity(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and Postal Code"/>
+                <input value={name} onChange={e => setName(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Your Name"/>
+                <input value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Email Address"/>
+            </div>
+            <div className="mt-4">
+                <div className="flex my-3">
+                    <h3 className="grow font-bold text-gray-400">Subtotal:</h3>
+                    <h3 className="font-bold">$123</h3>
+                </div>
+                <div className="flex my-3">
+                    <h3 className="grow font-bold text-gray-400">Delivery:</h3>
+                    <h3 className="font-bold">$123</h3>
+                </div>
+                <div className="flex my-3 border-t border-dashed border-emerald-500 pt-3">
+                    <h3 className="grow font-bold text-gray-400">Total:</h3>
+                    <h3 className="font-bold">$123</h3>
+                </div>
             </div>
         </Layout>
     )
