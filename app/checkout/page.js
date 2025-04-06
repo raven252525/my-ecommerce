@@ -1,6 +1,7 @@
 "use client"
 import Layout from "@/components/Layout"
 import { ProductsContext } from "@/components/ProductsContext"
+import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
 
 export default function CheckOutPage() {
@@ -11,6 +12,7 @@ export default function CheckOutPage() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     
+    const route = useRouter()
     
     useEffect(() => {
         const uniqueIds = [...new Set(selectedProducts)]
@@ -92,7 +94,7 @@ export default function CheckOutPage() {
                 
                 <input type="hidden" name="products" value={selectedProducts.join(',')}/>
 
-                <button type="submit" className="bg-emerald-500 p-5 px-5 py-2 rounded-xl text-white w-full mt-4 my-4 shadow-lg shadow-emerald-300">Pay ${total}</button>
+                <button type="submit" onClick={() => route.push('/thankyou')} className="bg-emerald-500 p-5 px-5 py-2 rounded-xl text-white w-full mt-4 my-4 shadow-lg shadow-emerald-300">Pay ${total}</button>
             </form>
             
         </Layout>

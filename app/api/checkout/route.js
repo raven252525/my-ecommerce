@@ -1,5 +1,6 @@
 import { initMongoose } from "@/lib/mongoose";
 import Product from "@/models/Product";
+import { redirect } from "next/dist/server/api-utils";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); // Initialize Stripe with your secret key
@@ -11,7 +12,6 @@ export async function POST(request) {
   const formData = await request.text(); // Read the raw text
   const parsedData = Object.fromEntries(new URLSearchParams(formData)); // Convert to an object
 
-  console.log("Parsed Data:", parsedData);
 
   const { address, city, name, email, products } = parsedData;
 
@@ -37,7 +37,7 @@ export async function POST(request) {
     );
 
     const totalAmount = subtotal + deliveryFee;
-
+    
     // Create Stripe payment intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(totalAmount * 100), // Convert to cents
@@ -45,15 +45,27 @@ export async function POST(request) {
       payment_method_types: ["card"],
     });
 
+    const checkoutData = {
+      products: productDetails,
+      subtotal,
+      deliveryFee,
+      totalAmount,
+      paymentIntentId: paymentIntent.id,
+    }
+
+
     return new Response(
       JSON.stringify({
-        message: "Checkout processed successfully",
-        paymentIntentId: paymentIntent.id,
-        clientSecret: paymentIntent.client_secret,
-        products: productDetails,
-        subtotal,
-        deliveryFee,
-        totalAmount,
+        //message: "Checkout processed successfully",
+        //paymentIntentId: paymentIntent.id,
+        //clientSecret: paymentIntent.client_secret,
+        //products: productDetails,
+        //subtotal,
+        //deliveryFee,
+        //totalAmount,
+        checkoutData,
+        success: true,
+        redirectUrl: '/thank-you',
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
@@ -66,3 +78,4 @@ export async function POST(request) {
     );
   }
 }
+
