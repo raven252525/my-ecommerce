@@ -9,10 +9,10 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url)
     const idsParam = searchParams.get("ids")
 
-    let products
+    let products = []
     if (idsParam) {
-
-        products = await Product.find({_id:{$in:idsParam.split(',')}})
+        const idsArray = idsParam.split(",")
+        products = await Product.find({_id:{$in: idsArray }})
     } else {
         products = await Product.find()
     }
