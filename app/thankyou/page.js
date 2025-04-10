@@ -7,19 +7,19 @@ export default function thankyou() {
     const [checkoutData, setCheckoutData] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('api/checkout')
-            console.log(response)
-            if (!response.ok) {
-                throw Error("Failedddd")
-            }
-            const data = await response.json()
-            setCheckoutData(data)
-            setLoading(false)
-        }
-        fetchData()
-    }, [])
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const response = await fetch('api/checkout')
+    //         console.log(response)
+    //         if (!response.ok) {
+    //             throw Error("Failedddd")
+    //         }
+    //         const data = await response.json()
+    //         setCheckoutData(data)
+    //         setLoading(false)
+    //     }
+    //     fetchData()
+    // }, [])
 
     if (loading) {
         return (
