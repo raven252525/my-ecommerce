@@ -18,7 +18,10 @@ export default function CheckOutPage() {
         const uniqueIds = [...new Set(selectedProducts)]
         fetch('/api/products?ids='+uniqueIds.join(','))
         .then(response => response.json())
-        .then(json => setProductInfos(json))
+        .then(json =>{
+            const filteredInfos = json.filter(product => selectedProducts.includes(product._id))
+            setProductInfos(filteredInfos)
+        })
     }, [selectedProducts])
 
     function moreOfThisProduct(id) {
@@ -43,13 +46,16 @@ export default function CheckOutPage() {
         }
     }
 
+    
+
     const total = subtotal + deliveryFee
     return (
         <Layout>
             {!selectedProducts.length && (
                 <div>no products in your shopping cart</div>
             )}
-            {(selectedProducts.length > 0) && productInfos.map((productInfo) => (
+            {(selectedProducts.length > 0) && productInfos.filter(productInfo => 
+            selectedProducts.includes(productInfo._id)).map((productInfo) => (
                 <div key={productInfo._id} className="flex mb-5">
                     <div className="bg-gray-100 p-3 rounded-xl shrink-0 ">
                         <img className="w-24" src={productInfo.picture} alt=""/>
